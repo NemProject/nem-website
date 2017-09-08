@@ -1,9 +1,9 @@
 # NEM Website
 
-## Require Softwares
+## Prerequisites
 
 + Git
-+ Node.js 6.5.0 (ndenv is recommended.)
++ Node.js 6.5.0 >= (ndenv is recommended.)
 
 ## Setup
 
@@ -14,9 +14,9 @@ npm install
 npm run bower install
 ```
 
-Make config.json file from config.json.sample
+Create a config.json file from config.json.sample, removing all comments.
 
-If you want to develope with original original i18 spreadsheet, you can set `document_key` with config.json.
+If you want to develop with original original i18 spreadsheet, you can set `document_key` with config.json.
 
 ## Development
 
