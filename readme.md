@@ -1,11 +1,11 @@
 # NEM Website
 
-## Require Softwares
+## Software Requirements
 
 + Git
 + Node.js 6.5.0 (ndenv is recommended.)
 
-## Setup
+## Required Setup
 
 ```
 git clone https://github.com/NewEconomyMovement/nem-website.git
