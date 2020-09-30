@@ -1,4 +1,4 @@
-# NEM Website
+# NEM Website - An Amazing Website for All
 
 ## Require Softwares
 
