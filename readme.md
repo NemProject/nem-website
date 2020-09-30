@@ -6,7 +6,7 @@
 + Node.js 6.5.0 (ndenv is recommended.)
 
 ## Setup
-
+for Linux and Mac
 ```
 git clone https://github.com/NewEconomyMovement/nem-website.git
 cd nem-website
