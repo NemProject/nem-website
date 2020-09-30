@@ -1,26 +1,26 @@
-var $        = require('gulp-load-plugins')();
-var argv     = require('yargs').argv;
-var browser  = require('browser-sync');
-var gulp     = require('gulp');
-var panini   = require('panini');
-var rimraf   = require('rimraf');
-var sequence = require('run-sequence');
-var sherpa   = require('style-sherpa');
-var i18n     = require('gulp-i18n-gspreadsheet');
-var config   = require('./config.json');
+let $        = require('gulp-load-plugins')();
+let argv     = require('yargs').argv;
+let browser  = require('browser-sync');
+let gulp     = require('gulp');
+let panini   = require('panini');
+let rimraf   = require('rimraf');
+let sequence = require('run-sequence');
+let sherpa   = require('style-sherpa');
+let i18n     = require('gulp-i18n-gspreadsheet');
+let config   = require('./config.json');
 
 // Check for --production flag
-var isProduction = !!(argv.production);
+let isProduction = !!(argv.production);
 // var isProduction = true;
 
 // Port to use for the development server.
-var PORT = 8765;
+let PORT = 8765;
 
 // Browsers to target when prefixing CSS.
-var COMPATIBILITY = ['last 2 versions', 'ie >= 9'];
+let COMPATIBILITY = ['last 2 versions', 'ie >= 9'];
 
 // File paths to various assets are defined here.
-var PATHS = {
+let PATHS = {
   assets: [
     'src/assets/**/*',
     '!src/assets/{!img,js,scss}/**/*'
@@ -76,19 +76,19 @@ var PATHS = {
 
 // Delete the "dist" folder
 // This happens every time a build starts
-gulp.task('clean', function(done) {
+gulp.task('clean', (done)=> {
   rimraf('dist', done);
 });
 
 // Copy files out of the assets folder
 // This task skips over the "img", "js", and "scss" folders, which are parsed separately
-gulp.task('copy', function() {
+gulp.task('copy', ()=> {
   gulp.src(PATHS.assets)
     .pipe(gulp.dest('dist/assets'));
 });
 
 // Copy page templates into finished HTML files
-gulp.task('pages', function() {
+gulp.task('pages',()=>{
   gulp.src('src/pages/**/*.{html,hbs,handlebars}')
     .pipe(panini({
       root: 'src/pages/',
@@ -100,7 +100,7 @@ gulp.task('pages', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('pages:reset', function(cb) {
+gulp.task('pages:reset',(cb)=> {
   panini.refresh();
   gulp.run('pages');
   cb();
@@ -108,8 +108,8 @@ gulp.task('pages:reset', function(cb) {
 
 // Compile Sass into CSS
 // In production, the CSS is compressed
-gulp.task('sass', function() {
-  var uncss = $.if(isProduction, $.uncss({
+gulp.task('sass', ()=> {
+  let uncss = $.if(isProduction, $.uncss({
     html: ['src/**/*.html'],
     ignore: [
       new RegExp('^meta\..*'),
@@ -117,7 +117,7 @@ gulp.task('sass', function() {
     ]
   }));
 
-  var cleancss = $.if(isProduction, $.cleanCss());
+  let cleancss = $.if(isProduction, $.cleanCss());
 
   return gulp.src('src/assets/scss/app.scss')
     .pipe($.sourcemaps.init())
@@ -137,9 +137,9 @@ gulp.task('sass', function() {
 
 // Combine JavaScript into one file
 // In production, the file is minified
-gulp.task('javascript', function() {
-  var uglify = $.if(isProduction, $.uglify()
-    .on('error', function (e) {
+gulp.task('javascript', ()=> {
+  let uglify = $.if(isProduction, $.uglify()
+    .on('error', (e)=> {
       console.log(e);
     }));
 
@@ -152,18 +152,18 @@ gulp.task('javascript', function() {
 });
 
 // Copy fontawesome font icons to dist folder
-gulp.task('fonts', function() {
+gulp.task('fonts', ()=>{
   gulp.src('bower_components/font-awesome/fonts/**.*')
     .pipe(gulp.dest('dist/assets/fonts/'));
 });
 
 // place needed pdf's at root level of dist
-gulp.task('pdfs', function() {
+gulp.task('pdfs',()=>{
   gulp.src('src/assets/pdfs/**.*')
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('nccCopy', ['clean'], function () {
+gulp.task('nccCopy', ['clean'],()=> {
     return gulp.src(['src/ncc/**/*'], {
       base: 'src'
     }).pipe(gulp.dest('dist'));
@@ -171,8 +171,8 @@ gulp.task('nccCopy', ['clean'], function () {
 
 // Copy images to the "dist" folder
 // In production, the images are compressed
-gulp.task('images', function() {
-  var imagemin = $.if(isProduction, $.imagemin({
+gulp.task('images', ()=> {
+  let imagemin = $.if(isProduction, $.imagemin({
     progressive: true
   }));
 
@@ -182,14 +182,14 @@ gulp.task('images', function() {
 });
 
 // Build the "dist" folder by running all of the above tasks
-gulp.task('build', function(done) {
+gulp.task('build', (done)=>{
   sequence('clean', ['translate', 'pages', 'sass', 'javascript', 'images', 'copy', 'fonts', 'pdfs', 'nccCopy'], done);
 });
 
 // google spreadsheet i18n.
 // Pulls columns from gspreadsheet and puts each column in seperate json file.
-gulp.task('translate', function() {
-  var document_key = '1dCO6KpecxgB577Fd0Gk0W-h9NuwTwPyDB7lysiNSZ34';
+gulp.task('translate', ()=>{
+  let document_key = '1dCO6KpecxgB577Fd0Gk0W-h9NuwTwPyDB7lysiNSZ34';
   if(!isProduction && config.document_key !== undefined) {
     document_key = (config.document_key);
   }
@@ -211,14 +211,14 @@ gulp.task('translate', function() {
 });
 
 // Start a server with LiveReload to preview the site in
-gulp.task('server', ['build'], function() {
+gulp.task('server', ['build'], ()=> {
   browser.init({
     server: 'dist', port: PORT
   });
 });
 
 // Build the site, run the server, and watch for file changes
-gulp.task('default', ['build', 'server'], function() {
+gulp.task('default', ['build', 'server'],()=>{
   gulp.watch(PATHS.assets, ['copy', browser.reload]);
   gulp.watch(['src/pages/**/*.html'], ['pages', browser.reload]);
   gulp.watch(['src/{layouts,partials}/**/*.html'], ['pages:reset', browser.reload]);
