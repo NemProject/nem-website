@@ -17,7 +17,6 @@
   "dependencies": {
     "foundation-sites": "~6.1.2",
     "motion-ui": "~1.1.0",
-    "font-awesome": "fontawesome#~4.5.0",
     "i18next": "~1.11.1",
     "svg-injector": "^1.1.3",
     "numeral": "numeraljs#^1.5.3",
