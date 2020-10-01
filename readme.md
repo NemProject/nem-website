@@ -1,3 +1,5 @@
+#Read the instructions carefully! 
+
 # NEM Website
 
 ## Require Softwares
