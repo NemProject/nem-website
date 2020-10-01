@@ -29,3 +29,5 @@ npm run start
 ```
 npm run build
 ```
+
+Visit Us - An Amazing Website
