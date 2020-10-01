@@ -21,7 +21,7 @@ If you want to develope with original original i18 spreadsheet, you can set `doc
 ## Development
 
 ```
-npm run start
+npm run start 
 ```
 
 ## Deployment
@@ -29,3 +29,4 @@ npm run start
 ```
 npm run build
 ```
+## thanks for visiting 
