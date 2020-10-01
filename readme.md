@@ -1,6 +1,6 @@
 # NEM Website
 
-## Require Softwares
+## Software Requirements
 
 + Git
 + Node.js 6.5.0 (ndenv is recommended.)
