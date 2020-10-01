@@ -1,4 +1,4 @@
-# NEM Website
+# NEM Website - A great initiative
 
 ## Require Softwares
 
