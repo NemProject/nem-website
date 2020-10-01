@@ -2,7 +2,7 @@
 
 ## Require Softwares
 
-+ Git
++ Github
 + Node.js 6.5.0 (ndenv is recommended.)
 
 ## Setup
